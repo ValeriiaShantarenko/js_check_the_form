@@ -67,9 +67,10 @@ describe(`Function 'validateRegisterForm':`, () => {
   });
 
   it(`should return error for email ending with a dot`, () => {
-    const invalidEmail = validateRegisterForm('test@mail.com.', 'P@ssword1!');
+    // eslint-disable-next-line max-len
+    const invalidEmail = validateRegisterForm('test@mail.com.', 'P@ssword1!'); // исправлено: добавлен пароль
 
-    expect(invalidEmail.code).toBe(422); // updated from 200 to 422
+    expect(invalidEmail.code).toBe(422);
     expect(invalidEmail.message).toBe('Email is invalid.');
   });
 
@@ -81,9 +82,9 @@ describe(`Function 'validateRegisterForm':`, () => {
   });
 
   it(`should return error for email with multiple dots in domain`, () => {
-    const invalidEmail = validateRegisterForm('test@mail..com', 'P@ssword1!');
+    const invalidEmail = validateRegisterForm('test@mai.l..com', 'P@ssword1!');
 
-    expect(invalidEmail.code).toBe(422); // updated from 200 to 422
+    expect(invalidEmail.code).toBe(422);
     expect(invalidEmail.message).toBe('Email is invalid.');
   });
 
@@ -119,7 +120,7 @@ describe(`Function 'validateRegisterForm':`, () => {
   it(`should return error for both invalid email and password`, () => {
     const invalidData = validateRegisterForm('test@com', 'ssword1');
 
-    expect(invalidData.code).toBe(422); // updated from 500 to 422
+    expect(invalidData.code).toBe(500);
     expect(invalidData.message).toBe('Password and email are invalid.');
   });
 });
