@@ -69,8 +69,8 @@ describe(`Function 'validateRegisterForm':`, () => {
   it(`should return error for email ending with a dot`, () => {
     const invalidEmail = validateRegisterForm('test@mail.com.', 'P@ssword1!');
 
-    expect(invalidEmail.code).toBe(200);
-    expect(invalidEmail.message).toBe('Email and password are valid.');
+    expect(invalidEmail.code).toBe(422); // updated from 200 to 422
+    expect(invalidEmail.message).toBe('Email is invalid.');
   });
 
   it(`should return error for email without top-level domain`, () => {
@@ -83,8 +83,8 @@ describe(`Function 'validateRegisterForm':`, () => {
   it(`should return error for email with multiple dots in domain`, () => {
     const invalidEmail = validateRegisterForm('test@mail..com', 'P@ssword1!');
 
-    expect(invalidEmail.code).toBe(200);
-    expect(invalidEmail.message).toBe('Email and password are valid.');
+    expect(invalidEmail.code).toBe(422); // updated from 200 to 422
+    expect(invalidEmail.message).toBe('Email is invalid.');
   });
 
   it(`should return error for password less than 8 characters`, () => {
@@ -119,7 +119,7 @@ describe(`Function 'validateRegisterForm':`, () => {
   it(`should return error for both invalid email and password`, () => {
     const invalidData = validateRegisterForm('test@com', 'ssword1');
 
-    expect(invalidData.code).toBe(500);
+    expect(invalidData.code).toBe(422); // updated from 500 to 422
     expect(invalidData.message).toBe('Password and email are invalid.');
   });
 });
